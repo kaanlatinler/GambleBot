@@ -1,0 +1,17 @@
+{
+    "Test_Server" : "1103023566968070246",
+    "devs": [
+        "400277071915515905"
+    ],
+    "CoinManagers": [
+        "324995247799140362",
+        "400277071915515905"
+    ],
+    "development": {
+        "username": "root",
+        "password": null,
+        "database": "Gamble_Bot",
+        "host": "127.0.0.1",
+        "dialect": "mysql"
+    }
+}
