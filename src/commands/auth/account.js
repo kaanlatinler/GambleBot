@@ -7,8 +7,6 @@ module.exports = {
     description: "Displays your account information.",
     callback: async (client, interaction) => {
 
-        await interaction.deferReply();
-
         const user = await User.findOne({ where: { discord_id: interaction.user.id } });
 
         if (!user) return interaction.reply('You do not have an account. Use `/register` to create one.');
