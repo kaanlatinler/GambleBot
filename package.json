@@ -4,7 +4,6 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "register": "node src/registerCommands.js",
     "start": "nodemon src/index.js"
   },
   "keywords": [],

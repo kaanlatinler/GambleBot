@@ -4,8 +4,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false
       },
-      change: {
-        type: DataTypes.INTEGER,
+      desc: {
+        type: DataTypes.STRING,
         allowNull: false
       },
       timestamp: {

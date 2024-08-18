@@ -8,10 +8,12 @@
         "400277071915515905"
     ],
     "development": {
-        "username": "root",
-        "password": null,
-        "database": "Gamble_Bot",
-        "host": "127.0.0.1",
-        "dialect": "mysql"
+        "username": "u4tzzjieyiko1dvj",
+        "password": "u4tzzjieyiko1dvj",
+        "database": "b4zlofgkfxbgcmz5wjll",
+        "host": "b4zlofgkfxbgcmz5wjll-mysql.services.clever-cloud.com",
+        "port": 3306,
+        "dialect": "mysql",
+        "connStr": "mysql://u4tzzjieyiko1dvj:3gD7tmogP4Px9RaZczLf@b4zlofgkfxbgcmz5wjll-mysql.services.clever-cloud.com:3306/b4zlofgkfxbgcmz5wjll"
     }
 }

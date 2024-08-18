@@ -7,20 +7,19 @@ module.exports = {
     options: [
         {
             name: 'bet',
-            type: 1,
+            type: 4,
             description: 'The amount of money you want to bet',
             required: true,
         },
     ],
     callback: async (client, interaction) => {
-        const user = User.findOne({ where: { discordId: interaction.user.id } });
+        const user = await User.findOne({ where: { discord_id: interaction.user.id } });
 
         if (!user) {
             return interaction.reply('You need to register first. Use the /register command');
         }
 
         const bet = interaction.options.getInteger('bet');
-
         if (bet < 1 || bet > user.coins) {
             return interaction.reply('You need to bet at least 1 coin');
         }
@@ -30,11 +29,11 @@ module.exports = {
 
         if(userCard.card > botCard.card) {
             user.coins += bet * 2;
-            await user.save();
+            await User.update({ coins: user.coins }, { where: { discord_id: interaction.user.id } });
             return interaction.reply(`You won! Your card: ${userCard.card}, Bot's card: ${botCard.card}. You now have ${user.coins} coins`);
         } else if (userCard.card < botCard.card) {
             user.coins -= bet;
-            await user.save();
+            await User.update({ coins: user.coins }, { where: { discord_id: interaction.user.id } });
             return interaction.reply(`You lost! Your card: ${userCard.card}, Bot's card: ${botCard.card}. You now have ${user.coins} coins`);
         } else {
             return interaction.reply(`It's a tie! Your card: ${userCard.card}, Bot's card: ${botCard.card}. You still have ${user.coins} coins`);
