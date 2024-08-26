@@ -8,22 +8,20 @@ const express = require('express');
 const app = express();
 
 app.listen(5000, () => {
-  console.log('Server is running on port 5000');
+  const client = new Client({
+    intents: [
+      IntentsBitField.Flags.Guilds,
+      IntentsBitField.Flags.GuildMembers,
+      IntentsBitField.Flags.GuildMessages,
+      IntentsBitField.Flags.GuildPresences,
+      IntentsBitField.Flags.MessageContent,
+    ],
+  });
+  
+  eventHandler(client);
+  
+  setInterval(hourlyAward, 2 * 60 * 60 * 1000);
+  setInterval(dailyAward, 24 * 60 * 60 * 1000);
+  
+  client.login(process.env.BOT_TOKEN);
 });
-
-const client = new Client({
-  intents: [
-    IntentsBitField.Flags.Guilds,
-    IntentsBitField.Flags.GuildMembers,
-    IntentsBitField.Flags.GuildMessages,
-    IntentsBitField.Flags.GuildPresences,
-    IntentsBitField.Flags.MessageContent,
-  ],
-});
-
-eventHandler(client);
-
-setInterval(hourlyAward, 2 * 60 * 60 * 1000);
-setInterval(dailyAward, 24 * 60 * 60 * 1000);
-
-client.login(process.env.BOT_TOKEN);
