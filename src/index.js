@@ -7,7 +7,7 @@ const dailyAward = require('./utils/dailyAward');
 const express = require('express');
 const app = express();
 
-app.listen(5000, () => {
+app.listen(8080, () => {
   const client = new Client({
     intents: [
       IntentsBitField.Flags.Guilds,
