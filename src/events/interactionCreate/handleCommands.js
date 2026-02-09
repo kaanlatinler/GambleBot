@@ -1,4 +1,4 @@
-const {devs, Test_Server} = require("../../../config.json");
+const {devs} = require("../../../config.json");
 const getLocalCommands = require("../../utils/getLocalCommands");
 
 

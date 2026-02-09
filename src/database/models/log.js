@@ -1,23 +1,28 @@
 module.exports = (sequelize, DataTypes) => {
-    const Log = sequelize.define('Log', {
-      user_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-      },
-      desc: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      timestamp: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW
-      }
+  const Log = sequelize.define("Log", {
+    id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true, // ← Bunu eklemezsen hep 0 gelir
+}
+,
+    action: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    user_id: {
+      type: DataTypes.STRING, // <-- INTEGER yerine BIGINT
+      allowNull: true
+    }
+  });
+
+  Log.associate = models => {
+    Log.belongsTo(models.User, {
+      foreignKey: "discord_id",
+      onDelete: "SET NULL",
+      onUpdate: "CASCADE"
     });
-  
-    Log.associate = function(models) {
-      Log.belongsTo(models.User, { foreignKey: 'user_id' });
-    };  
-  
-    return Log;
   };
-  
+
+  return Log;
+};

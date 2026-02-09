@@ -1,6 +1,5 @@
 const { EmbedBuilder } = require('discord.js');
 
-
 module.exports = {
     name: "register",
     description: "Register your account",
@@ -11,39 +10,53 @@ module.exports = {
 
         await interaction.deferReply();
 
-        const embed = async (title, msg, color, userToAdd, i) => {
+        const embed = async (title, msg, color, userData, i) => {
             const Embed = new EmbedBuilder()
-            .setColor(`${color}`)
-            .setTitle(`${title}`)
-            .setAuthor({
-                name: client.user.username,
-                iconURL: client.user.displayAvatarURL()
-            })
-            .setDescription(`${msg}`)
-            .setThumbnail(user.displayAvatarURL())
-            .addFields(
-            { name: 'Username', value: user.username, inline: true },
-            { name: 'Coins', value: `${userToAdd.coins} 🪙`, inline: true },
-            { name: 'Rank', value: newUser.rank, inline: true }
-            )
-            .setTimestamp()
-            .setFooter({
-                text: 'Developed by Orion',
-                iconURL: client.user.displayAvatarURL()
-            });
+                .setColor(color)
+                .setTitle(title)
+                .setAuthor({
+                    name: client.user.username,
+                    iconURL: client.user.displayAvatarURL()
+                })
+                .setDescription(msg)
+                .setThumbnail(user.displayAvatarURL())
+                .addFields(
+                    { name: 'Username', value: user.username, inline: true },
+                    { name: 'Hane', value: userData.hane, inline: true }
+                )
+                .setTimestamp()
+                .setFooter({
+                    text: 'Developed by Orion',
+                    iconURL: client.user.displayAvatarURL()
+                });
 
             await i.editReply({ embeds: [Embed] });
         };
 
         const [newUser, created] = await User.findOrCreate({
             where: { discord_id: id },
-            defaults: { username: username, coins: 1000, rank:"Veresiye Veren" }
+            defaults: {
+                username: username,
+                hane: "Bilinmiyor" // veya istediğin default değer
+            }
         });
 
         if (created) {
-            embed('Registered', 'You have been registered! 🎉', '#EEEEEE', newUser, interaction);
+            embed(
+                'Registered',
+                'You have been successfully registered! 🏠',
+                '#2ECC71',
+                newUser,
+                interaction
+            );
         } else {
-            embed('Already Registered!', 'You are already registered! ⛔', '#931A25', newUser, interaction);
+            embed(
+                'Already Registered!',
+                'You are already registered! ⛔',
+                '#E74C3C',
+                newUser,
+                interaction
+            );
         }
     }
-}
+};

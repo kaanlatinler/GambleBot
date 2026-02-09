@@ -1,19 +1,46 @@
 {
-    "Test_Server" : "1103023566968070246",
+   
+    "Test_Server" : "1460210951092441155",
     "devs": [
-        "400277071915515905"
-    ],
-    "CoinManagers": [
-        "324995247799140362",
-        "400277071915515905"
+        "400277071915515905",
+        "417240111403761665"
     ],
     "development": {
-        "username": "u4tzzjieyiko1dvj",
-        "password": "u4tzzjieyiko1dvj",
-        "database": "b4zlofgkfxbgcmz5wjll",
-        "host": "b4zlofgkfxbgcmz5wjll-mysql.services.clever-cloud.com",
+        "username": "root",
+        "password": "",
+        "database": "Prussia",
+        "host": "127.0.0.1",
         "port": 3306,
         "dialect": "mysql",
-        "connStr": "mysql://u4tzzjieyiko1dvj:3gD7tmogP4Px9RaZczLf@b4zlofgkfxbgcmz5wjll-mysql.services.clever-cloud.com:3306/b4zlofgkfxbgcmz5wjll"
+        "connStr": "mysql://root:@127.0.0.1:3306/Prussia"
+    },
+    "channels": {
+        "logChannel": "1461464374358311155",
+        "transcriptChannel": "1461464374358311155",
+        "registerChannel": "1103023567421051001",
+        "registeredChannel": "1103023567421051002",
+        "announcementChannel": "1103023567421051006"
+    },
+    "categories": {
+        "ticketCategory": "1461463618687205376"
+    },
+    "roles": {
+        "moderatorRoles": [
+            "1460679869774958723",
+            
+            "1460237613918322781"
+        ],
+        "defaultRoles": [
+        "1460333771600429139",
+        "1460336235276013598",
+        "1460336299201269901",
+        "1461798873289850930",
+        "1460333940547260704",
+        "1460334064883208224",
+        "1460335261442506843"
+    ],
+        "maleRole": "1103023567421051004"
     }
+    
 }
+

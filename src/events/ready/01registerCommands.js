@@ -4,50 +4,58 @@ const getApplicationCommands = require("../../utils/getApplicationCommands");
 const getLocalCommands = require("../../utils/getLocalCommands");
 
 module.exports = async (client) => {
-    try {
-        const localCommands = await getLocalCommands();
-        const applicationCommands = await getApplicationCommands(client, Test_Server);
+  try {
+    const localCommands = await getLocalCommands();
+    const applicationCommands = await getApplicationCommands(client, Test_Server);
 
-        for (const command of localCommands) {
-            const { name, description, options } = command;
+    for (const command of localCommands) {
 
-            const existingCommand = applicationCommands.cache.find(
-                (cmd) => cmd.name === name
-            );
+      // ⚠️ Eski sistem koruması
+      if (!command.name || !command.description) {
+        console.log(`⏩ Skipped invalid command file`);
+        continue;
+      }
 
-            if (existingCommand) {
-                if(command.deleted){
-                    await applicationCommands.delete(existingCommand.id);
-                    console.log(`🗑 Deleted command "${name}".`);
-                    continue;
-                }
+      const { name, description, options } = command;
 
-                if(areCommandsDifferent(existingCommand, command)) {
-                    await applicationCommands.edit(existingCommand.id, {
-                            description,
-                            options
-                        }
-                    )
-                    console.log(`🔁 Edited command "${name}".`);
-                }
-            } else {
-                if(command.deleted){
-                    console.log(
-                        `⏩ Skipping registering command "${name}" as it's set to delete.`
-                      );
-                    continue;
-                }
+      const existingCommand = applicationCommands.cache.find(
+        (cmd) => cmd.name === name
+      );
 
-                await applicationCommands.create({
-                        name,
-                        description,
-                        options
-                    }
-                )
-                console.log(`👍 Registered command "${name}."`);
-            }
+      // 🗑 DELETE
+      if (existingCommand && command.deleted) {
+        await applicationCommands.delete(existingCommand.id);
+        console.log(`🗑 Deleted command "${name}"`);
+        continue;
+      }
+
+      // 🔁 UPDATE
+      if (existingCommand) {
+        if (areCommandsDifferent(existingCommand, command)) {
+          await applicationCommands.edit(existingCommand.id, {
+            name,
+            description,
+            options: options ?? []
+          });
+          console.log(`🔁 Edited command "${name}"`);
         }
-    } catch (error) {
-        console.error(error);
+      }
+      // ➕ CREATE
+      else {
+        if (command.deleted) {
+          console.log(`⏩ Skipped deleted command "${name}"`);
+          continue;
+        }
+
+        await applicationCommands.create({
+          name,
+          description,
+          options: options ?? []
+        });
+        console.log(`👍 Registered command "${name}"`);
+      }
     }
+  } catch (error) {
+    console.error("❌ Command register error:", error);
+  }
 };
