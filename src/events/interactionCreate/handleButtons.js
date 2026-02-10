@@ -17,6 +17,7 @@ const {
   TicketTranscript,
   User,
 } = require("../../database/models");
+const { ValidationErrorItemOrigin } = require("sequelize");
 const { ticketCategory } = require("../../../config.json").categories;
 const { moderatorRoles, defaultRoles } = require("../../../config.json").roles;
 const { logChannel } = require("../../../config.json").channels;
@@ -112,7 +113,7 @@ Bu kanal senin **resmî kayıt dosyandır**.
 • Oyun içi isim
 • Daha önce bulunduğun sunucular
 
-🛡️   .
+🛡️  Yetkili: <@&${gateGuard.id}> .
         `,
       thumbnail: user.displayAvatarURL(),
       color: "#3498DB",
@@ -249,8 +250,9 @@ Bu kanal senin **resmî kayıt dosyandır**.
 
     /* ===== TICKET BUL ===== */
     const ticket = await Ticket.findOne({
-      where: { channelId: interaction.channel.id, status: 0 },
+      where: { channelId: interaction.channel.id, status:1 },
     });
+
 
     /* ===== DB KAYIT ===== */
     await TicketTranscript.create({

@@ -36,7 +36,7 @@ module.exports = async (client, interaction) => {
     }
 
     /* =============== İSİM DEĞİŞTİRME MODAL =============== */
-    if (interaction.isModalSubmit() && interaction.customId === "nameChangeModal_") {
+    if (interaction.isModalSubmit() && interaction.customId.startsWith("nameChangeModal_")) {
         const firstKey = Object.keys(client.tempUserData)[0];
         const userId = client.tempUserData[firstKey].id;
         return changeNameModal(client, interaction, userId);
@@ -208,8 +208,7 @@ async function handleKayitModal2(client, interaction) {
     });
 
     const hanes = await Hane.findAll();
-
-console.log(hanes)
+    
     const row = new ActionRowBuilder().addComponents(
         ...hanes.map(hane =>
             new ButtonBuilder()
